@@ -1,36 +1,8 @@
 package;
 
-import flixel.graphics.FlxGraphic;
-import flixel.FlxG;
-import flixel.FlxGame;
-import flixel.FlxState;
-import openfl.Assets;
-import openfl.Lib;
-import openfl.display.FPS;
-import openfl.display.Sprite;
-import openfl.events.Event;
-import openfl.display.StageScaleMode;
-import lime.app.Application;
-import flixel.util.FlxSave;
-import flixel.math.FlxRandom;
-
-
-#if desktop
-import Discord.DiscordClient;
-#end
-
-//crash handler stuff
-#if CRASH_HANDLER
-import openfl.events.UncaughtErrorEvent;
-import haxe.CallStack;
-import haxe.io.Path;
-import sys.FileSystem;
-import sys.io.File;
-import sys.io.Process;
-#end
-import caching.*;
-
-using StringTools;
+import flixel.FlxCamera;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 
 class FaceOff
 {
@@ -70,8 +42,7 @@ class FaceOff
         cams[0].target = null;
         FlxG.cameras.add(cams[0]);
         cams[0].y-=720;
-        cams[0].setFilters([new ShaderFilter(PlayState.bloom)]);
-    
+
     
         cams[1]= new FlxCamera();
         cams[1].copyFrom(PlayState.camGame);
@@ -90,9 +61,7 @@ class FaceOff
         cams[1].scroll.y-=150;
         cams[1].target = null;
         FlxG.cameras.add(cams[1]);
-        FlxG.cameras.add(camHUD);
-        cams[1].setFilters([new ShaderFilter(PlayState.bloom)]);
-    
+
         FlxCamera.defaultCameras = [cams[0], cams[1], PlayState.camGame];
         cams[0].zoom = 1;
         cams[1].y+= 720;
